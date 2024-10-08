@@ -18,7 +18,8 @@ void createElement() {
 
 void insertBeg() {
 	createElement();
-	if (head == NULL) {
+	if (head == NULL) 
+	{
 		head = p;
 		p->link = NULL;
 	}
@@ -31,15 +32,15 @@ void insertBeg() {
 
 void insertEnd() {
 	createElement();
-	if (head == NULL) {
+	if (head == NULL) 
+	{
 		head = p;
 		p->link = NULL;
 	}
 	else 
 	{
 		temp = head;
-		// if you use temp != NULL, you are actually doing out of bounds memory access which can lead to segmentation fault.
-		while(temp->link != NULL)
+		while(temp->link != NULL) // if you use temp != NULL, you are actually doing out of bounds memory access which can lead to segmentation fault.
 			temp = temp->link;
 		temp->link = p;
 		p->link = NULL;
@@ -48,32 +49,59 @@ void insertEnd() {
 
 void insertPos(int position) {
 	createElement();
-	if (head == NULL)
+	if (head == NULL) 
+	{
 		head = p;
+		p->link = NULL;
+	}
 	else 
 	{
+		temp = head;
 		loc = head;
-		loc = loc->link;
-		printf("meow");
+		loc = loc->link; // move loc to the front
 		for(int i = 1; i < (position - 1); i++)
 		{
-			printf("\nreached %d position", position);
 			loc = loc->link; // loc at front
 			temp = temp->link; // temp at back
 		}
 		temp->link = p;
 		p->link = loc;
 	}
-	
-
 }
 
 void traverse() {
-	for(temp = head; temp != NULL; temp = temp->link)
+	for(temp = head; temp != NULL; temp = temp->link) // do not use temp->link != NULL, else you wont get last element
 		printf("%d\t", temp->data);
 	printf("\n");
 }
 
+void deleteBeg() {
+	if (head == NULL)
+		printf("\nList Empty");
+	else
+	{
+		temp = head;
+		head = head->link;
+		free(temp);
+	}
+}
+
+void deleteEnd() {
+	if (head == NULL)
+		printf("\nList empty");
+	else
+	{
+		temp = head;
+		loc = head;
+		loc = loc->link;
+		while (temp->link != NULL) { // do not use temp != NULL, can lead to segmentation faults
+			loc = loc->link; // loc at the end
+			temp = temp->link;
+		}
+		temp->link = NULL;
+		free(loc);
+	}
+}
 
 int main() {
 	int choice, flag = 1;
@@ -98,6 +126,13 @@ int main() {
 				printf("\nEnter the position you'd like to add the value to: ");
 				scanf("%d", &position);
 				insertPos(position);
+				break;
+			case 4:
+				deleteBeg();
+				break;
+			case 5:
+				deleteEnd();
+				break;
 			case 7:
 				traverse();
 				break;
