@@ -94,7 +94,7 @@ void deleteEnd() {
 		temp = head;
 		loc = head;
 		loc = loc->link;
-		while (temp->link != NULL) { // do not use temp != NULL, can lead to segmentation faults
+		while (loc->link != NULL) { // do not use temp != NULL, can lead to segmentation faults
 			loc = loc->link; // loc at the end
 			temp = temp->link;
 		}
