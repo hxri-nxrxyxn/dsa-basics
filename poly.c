@@ -29,10 +29,10 @@ struct node* insertNode(struct node* poly, int coeff, int exp)
 void display(struct node* poly) {
 	while(poly != NULL)
 	{
-		printf("%dx^%d ", poly->coeff, poly->exp);
+		printf("%dx^%d", poly->coeff, poly->exp);
 		poly = poly->next;
 		if (poly != NULL)
-			printf("+");
+			printf(" + ");
 	}
 }
 
@@ -48,18 +48,24 @@ struct node* addPolynomials(struct node* poly1, struct node* poly2)
 		}
 		else if (poly2 == NULL)
 		{
-			result = insertNode(result, poly1->coeff, poly2->exp);
+			result = insertNode(result, poly1->coeff, poly1->exp);
+			poly1 = poly1->next;
 		}
 		else if (poly1->exp > poly2->exp)
 		{
-			result = insertNode(result, poly2->coeff, poly2->exp);
+			result = insertNode(result, poly1->coeff, poly1->exp);
 			poly1 = poly1->next;
+		}
+		else if (poly1->exp < poly2->exp)
+		{
+			result = insertNode(result, poly2->coeff, poly2->exp);
+			poly2 = poly2->next;
 		}
 		else
 		{
 			sumcoeff = poly1->coeff + poly2->coeff;
 			if (sumcoeff != 0)
-			result = insertNode(result, sumcoeff, poly1->exp);
+				result = insertNode(result, sumcoeff, poly1->exp);
 		}
 		poly1 = poly1->next;
 		poly2 = poly2->next;
@@ -71,6 +77,7 @@ int main()
 {
 	struct node *poly1 = NULL, *poly2 = NULL, *result = NULL;	
 	int n, coeff, exp;
+
 	printf("\nEnter the number of terms of first polynomial: ");
 	scanf("%d", &n);
 	for (int i = 0; i < n; i++)
@@ -87,10 +94,15 @@ int main()
 		scanf("%d %d", &coeff, &exp);
 		poly2 = insertNode(poly2, coeff, exp);
 	}
+
 	printf("\nFirst polynomial is: ");
 	display(poly1);
 	printf("\nSecond polynomial is: ");
 	display(poly2);
+	result = addPolynomials(poly1, poly2);
+	printf("\nResult is: ");
+	display(result);
+
 	printf("\n");
 	return 0;
 }
