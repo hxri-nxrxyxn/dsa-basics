@@ -71,9 +71,6 @@ void display(struct node *head) {
 }
 
 int main() {
-	// int digit, digits;
-	// printf("\nEnter the number of digits:");
-	// scanf("%d", &digits);
 
 	int num, digit;
 	printf("\nEnter the number: ");
@@ -84,15 +81,6 @@ int main() {
 		head2 = insertBeg(head2, digit);
 		num = num / 10;
 	}
-
-	// for (int i = 0; i < digits; i++) {
-	// 	printf("Enter the digit %d: ", i + 1);
-	// 	scanf("%d", &digit);
-
-	// 	// the trick to reverse
-	// 	head1 = insertEnd(head1, digit);
-	// 	head2 = insertBeg(head2, digit);
-	// }
 
 	display(head1);
 	display(head2);
