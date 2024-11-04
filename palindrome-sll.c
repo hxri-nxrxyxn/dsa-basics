@@ -73,7 +73,7 @@ void display(struct node *head) {
 int main() {
 
 	int num, digit;
-	printf("\nEnter the number: ");
+	printf("Enter the number: ");
 	scanf("%d", &num);
 	while (num != 0) {
 		digit = num % 10;
